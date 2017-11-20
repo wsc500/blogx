@@ -1,0 +1,180 @@
+{% extends "adminx/blog/base.html" %}
+
+{% load static %}
+
+{% block customCss %}
+  <link href="{% static "adminx/css/markdown-editor.css" %}" rel="stylesheet">
+  <link href="{% static "treeview/css/bootstrap-treeview.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+  New Blog | Adminx | Blogx
+{% endblock %}
+
+
+
+
+{% block createActive %}
+  class="active"
+{% endblock %}
+
+
+{% block indexcontent %}
+  <h1 class="page-header">{{pageTitle}}</h1>
+  <input id="blog-id" type="text" name="blog-id" value="{{actionType}}" style="display:none">
+  <input id="categoryInput" type="text" name="categoryInput" value="" style="display:none">
+
+  <!-- Preview Modal -->
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="previewModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         <h4 class="modal-title" id="myModalLabel">Markdown Preview</h4>
+       </div>
+       <div class="modal-body">
+         <div id="editor-previewarea">
+           <!-- Preview Html Here by markdown-editor.js-->
+         </div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       </div>
+      </div>
+    </div>
+  </div>
+  <!-- About Modal -->
+  <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">About Markdown-Editor-X</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+          A simple Markdown editor for BlogX.<br>
+          Revised base on <a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank">simplemde-markdown-editor</a>,
+          Icons from <a href="http://fontawesome.io" target="_blank">Fontawesom</a><br>
+          To get the same sytle with blog page, preview function is base on backend render.<br>
+          </p>
+          <p>
+          Design by wsc500.
+          </p>
+          <p>
+          TODO : Make a component?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Picture Upload Modal -->
+  <div class="modal fade" id="picUploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Upload Picture</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-md-7 form-gorup">
+                  <label for="pic">Choose file</label>
+                  <input type="file" name="pic" id="pic-input">
+                </div>
+                <div class="col-md-5">
+                  <div class="alert alert-info" role="alert" id="upload-modal-alert">
+                    <div class="row" style="margin-left:5px">
+                      <div class="col-md-2">
+                        <i class="fa fa-info-circle fa-2x" aria-hidden="true" id="upload-modal-icon"></i>
+                      </div>
+                      <div class="col-md-10" id="upload-modal-info" style="margin-top:3px">
+                        Waiting upload
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="upload-file-btn">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Main Form -->
+
+
+    <div class="row">
+      <!-- Markdown-Editor-->
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="titleInput">Blog title</label>
+              <input type="text" class="form-control" name="titleInput" id="titleInput" placeholder="Blog title">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="editor-textarea">Blog Content</label>
+            <div class="editor-toolbar-r">
+              <a title="Insert Image" tabindex="-1" class="fa fa-picture-o" data-toggle="modal" data-target="#picUploadModal"></a>
+              <i class="separator">|</i>
+              <a title="Preview" tabindex="-1" class="fa fa-eye no-disable" data-toggle="modal" data-target="#previewModal" id="editor-preview-btn"></a>
+              <a title="Toggle Side by Side (F9)" tabindex="-1" class="fa fa-columns no-disable no-mobile"></a>
+              <i class="separator">|</i>
+              <a title="About" tabindex="-1" class="fa fa-question-circle" data-toggle="modal" data-target="#aboutModal"></a>
+            </div>
+            <textarea class="editor-textarea-r" name="editor-textarea" id="editor-textarea"></textarea>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-lg" id="submit-btn"> Submit </button>
+          </div>
+          <div class="col-md-6" id="errorinfo">
+
+
+          </div>
+        </div>
+
+
+
+      </div>
+      <!-- Categroy Tree -->
+      <div class="col-md-2">
+
+          <label for="tree">Category</label>
+          <div id="tree">
+            <i class="fa fa-spinner fa-spin fa-2x fa-fw" id="treeStatus"></i>
+          </div>
+
+
+      </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block customJs %}
+  <script src="{% static "treeview/js/bootstrap-treeview.min.js" %}"></script>
+  <script src="{% static "adminx/js/create.js" %}">/*Cuntom action*/</script>
+  <script src="{% static "adminx/js/markdown-editor.js" %}"></script>
+{% endblock %}

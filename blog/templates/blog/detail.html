@@ -1,0 +1,38 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+
+
+
+
+{% block title %}{{info.title}} | blogx{% endblock %}
+
+{% block content %}
+<div class="col-sm-12 blog-main">
+
+  <div class="blog-post">
+
+    <h2 class="blog-post-title">{{info.title}}</h2>
+    <p class="blog-post-meta"><i class="fa fa-book fa-1x" aria-hidden="true"></i> {{category}} @ {{info.createdTime|date:"Y-n-d G:i"}}</p>
+
+    <!-- Blog Content -->
+    <p>
+    {% autoescape off %}
+    {{detail}}
+    {% endautoescape %}
+    </p>
+    <!-- Blog Content End -->
+
+  </div>
+
+
+
+  <nav>
+    <ul class="pager">
+      {% if preid != -1 %}<li><a href="{% url "blog:blogDetail" preid %}">Previous</a></li>{% endif %}
+      {% if nxtid != -1 %}<li><a href="{% url "blog:blogDetail" nxtid %}">Next</a></li>{% endif %}
+    </ul>
+  </nav>
+
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block customCss %}
+  <!-- Category tree -->
+  <link href="{% static "treeview/css/bootstrap-treeview.min.css" %}" rel="stylesheet">
+{% endblock %}
+{% block title %}Blogx{% endblock %}
+
+{% block content %}
+<div class="col-sm-8 blog-main" id=blogList>
+
+
+
+
+{% for blog in blogs  %}
+  <div class="blog-post">
+
+    <h2 class="blog-post-title"><a href="{% url 'blog:blogDetail' blog.id %}" id="blogTitle">{{blog.title}}</a></h2>
+    <p class="blog-post-meta" id="blogMeta"><i class="fa fa-book fa-1x" aria-hidden="true"></i>{{blog.category}} @ {{blog.createdTime|date:"Y-n-d G:i"}}</p>
+    {% autoescape off %}
+      {{blog.shortcut}}
+    {% endautoescape %}
+  </div><!-- /.blog-post -->
+{% endfor %}
+
+
+</div>
+
+
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+
+  <div class="sidebar-module">
+    <h4>Category</h4>
+    <div id=tree>
+
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw" id="treeStatus"></i>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+{% endblock %}
+
+{% block customJs %}
+  <script src="{% static "treeview/js/bootstrap-treeview.min.js" %}"></script>
+  <script src="{% static "blog/js/treeview-list.js" %}">/*Cuntom treeview action*/</script>
+{% endblock %}

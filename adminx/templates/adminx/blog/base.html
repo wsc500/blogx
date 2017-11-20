@@ -1,0 +1,25 @@
+{% extends "adminx/superbase.html" %}
+{% block navtitle %}
+  Blog Admin
+{% endblock %}
+{% block content %}
+
+<div class="col-sm-3 col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li {% block createActive %}{% endblock %}><a href="{% url 'adminx:createBlog' %}">Write Blog</a></li>
+    <li {% block categoryActive %}{% endblock %}><a href="{% url 'adminx:category' %}">Category</a></li>
+  </ul>
+  <ul class="nav nav-sidebar">
+    <li><a href="#" onclick="return false;">Comment</a></li>
+    <li><a href="#" onclick="return false;">Statisic</a></li>
+    <li><a href="#" onclick="return false;">Settings</a></li>
+  </ul>
+</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  {% block indexcontent %}
+
+  {% endblock %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "adminx/blog/base.html" %}
+{% load static %}
+
+{% block customCss %}
+  <link href="{% static "treeview/css/bootstrap-treeview.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block title %}
+  Category | Adminx | Blogx
+{% endblock %}
+
+{% block categoryActive %}
+  class="active"
+{% endblock %}
+
+
+{% block indexcontent %}
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Delete Blog</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">Confirm to delete <b><span id="delete-blog-name" > </span></b> ?</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="deltet-blog-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="shortcutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Shortcut</h4>
+      </div>
+      <div class="modal-body">
+        <textarea name="shortcut" id="shortcut" rows="8" cols="80" class="form-control"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="submit-shortcut-btn">Sumbit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="editable-tree">
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-inline">
+              <label for="category-name">Add a category under <em id="current-category">ROOT</em> </label>
+              <input type="text" class="form-control" id="add-category-name" placeholder="Category name">
+              <button type="button" class="btn btn-primary" id="add-category-btn">Go</button>
+            </div>
+            <div class="form-group">
+              <label>Or</label>
+            </div>
+            <div class="form-group form-inline">
+              <label for="category-name">Remove a category</label>
+              <input type="text" class="form-control" id="del-category-name" placeholder="Select a category" readonly>
+              <button type="button" class="btn btn-danger" id="delete-category-btn">Go</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h1 class="page-header">Category</h1>
+<div class="row">
+  <div class="col-md-2">
+    <div id="tree">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw" id="treeStatus"></i>
+    </div>
+    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#categoryModal"> Edit Catgory </button>
+  </div>
+  <div class="col-md-4" id="blogList">
+
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="btn-toolbar" id="toolbar" style="display:none">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default" id="edit-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> edit</button>
+            <button type="button" class="btn btn-default" id="shortcut-btn" data-toggle="modal" data-target="#shortcutModal"><i class="fa fa-info-circle" aria-hidden="true"></i> shortcut</button>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default" id="stick-btn"><i class="fa fa-arrow-up" aria-hidden="true"></i> stick</button>
+            <button type="button" class="btn btn-default" id="hide-btn" data-toggle="tooltip" data-placement="top" title="开发中..."><i class="fa fa-eye-slash" aria-hidden="true"></i> hide</button>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-danger" id="delete-btn" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash" aria-hidden="true"></i> delete</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" id="blogContent" style="margin-top:20px;">
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}
+
+
+
+{% block customJs %}
+  <script src="{% static "treeview/js/bootstrap-treeview.min.js" %}"></script>
+  <script src="{% static "adminx/js/category.js" %}">/*Cuntom treeview action*/</script>
+  <script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "midware/ancestor.html" %}
+{% load static %}
+{% block title %}
+  Hello World _
+{% endblock %}
+{% block templateCss %}
+  <link href="{% static "midware/cover.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block templateBody %}
+
+
+<div class="site-wrapper">
+
+  <div class="site-wrapper-inner">
+
+    <div class="cover-container">
+
+      <div class="masthead clearfix">
+        <div class="inner">
+          <h3 class="masthead-brand">Hello World_</h3>
+          <nav>
+            <ul class="nav masthead-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="{% url "blog:blogIndex" %}">Blog</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="inner cover">
+        <h1 class="cover-heading">A meaningless blog.</h1>
+        <p class="lead">~ ("Let us accept the world is a mystery. Nature is neither solely material nor entirely spiritual. Man, too, is more than flesh and blood; otherwise, no religions would have been possible. Behind each cause is still another cause; the end or the beginning of all causes has yet to be found." - Albert Einstein )</p>
+        <p class="lead">
+          <a href="{% url "blog:blogIndex" %}" class="btn btn-lg btn-default">Enter Blog</a>
+        </p>
+      </div>
+
+      <div class="mastfoot">
+        <div class="inner">
+          <p>Web Design By <a href="https://github.com/wsc500">wsc500</a> , build with <a href="http://getbootstrap.com">Bootstrap</a>.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
