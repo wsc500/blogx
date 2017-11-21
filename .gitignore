@@ -17,4 +17,5 @@ tests/report/
 /media/*
 local_settings.py
 */migrations/*
-django.log
+/httplog/*
+*.ini
