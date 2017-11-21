@@ -14,7 +14,7 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/
-media/
-django.log
+/media/*
 local_settings.py
-migragions
+*/migrations/*
+django.log
