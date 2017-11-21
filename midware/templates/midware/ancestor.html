@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load compress %}
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
@@ -30,26 +31,34 @@
         blogAdminPage   : "{% url 'adminx:blogAdmin' %}",
       };
     </script>
+
+
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="{% static 'blog/css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
-    {% block templateCss %}
-    <!-- Custom styles for template -->
-    {% endblock %}
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{% static 'blog/js/ie10-viewport-bug-workaround.js' %}"></script>
 
     <!-- Font-awesom -->
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static 'blog/css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'blog/js/ie10-viewport-bug-workaround.js' %}"></script>
+
+    {% compress css %}
+    
+    {% block templateCss %}
+    <!-- Custom styles for template -->
+    {% endblock %}
 
     <!-- Code high-light -->
     <link href="{% static 'markdown/css/codehighlight.css' %}" rel="stylesheet">
 
     {% block customCss %}
     {% endblock %}
+
+    {% endcompress %}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -71,8 +80,7 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{% static 'blog/js/ie10-viewport-bug-workaround.js' %}"></script>
+
 
     <!-- Mathjax -->
     <script type="text/x-mathjax-config">
@@ -84,7 +92,13 @@
       });
     </script>
     <script src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML"></script>
+    {% compress js %}
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'blog/js/ie10-viewport-bug-workaround.js' %}"></script>
     {% block customJs %}
     {% endblock %}
+
+    {% endcompress %}
+
   </body>
 </html>

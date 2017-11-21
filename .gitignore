@@ -1,4 +1,5 @@
 venv/
+staticfile/
 *.egg-info
 *.pot
 *.py[co]

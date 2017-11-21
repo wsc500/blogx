@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'adminx.apps.AdminxConfig',
     'midware.apps.MidwareConfig',
+    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blogx.wsgi.application'
+STATICFILES_FINDERS = [
 
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -125,12 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = '/home/wsc500/blogx/staticfile/'
 # Media Files
 
 MEDIA_ROOT = '/home/wsc500/blogx/media/'
 MEDIA_URL = '/media/'
 
+COMPRESS_ENABLED=True
 
 LOGGING = {
     'version': 1,
