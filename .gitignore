@@ -16,3 +16,4 @@ build/
 tests/report/
 media/
 django.log
+local_settings.py
